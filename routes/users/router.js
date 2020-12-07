@@ -131,4 +131,39 @@ router.get("/", authentication, async (request, response) => {
   });
 });
 
+router.patch("/update", authentication, async (request, response) => {
+  try {
+    const { name } = request.body;
+
+    if (!name) {
+      return response.status(400).json({ message: "Please enter a valid name." });
+    }
+
+    const user = await User.findById(request.user);
+
+    if (user.name === name) {
+      return response.status(400).json({ message: "This name is the same as the current name." });
+    }
+
+    const editedUser = await User.findByIdAndUpdate(user._id, { name });
+
+    if (!editedUser) {
+      return response.status(400).json({ message: "Something went wrong." });
+    }
+
+    const updatedUser = await User.findById(request.user);
+
+    response.json({
+      message: "User successfully updated.",
+      user: {
+        id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+      },
+    });
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = router;
