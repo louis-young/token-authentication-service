@@ -75,6 +75,7 @@ router.post("/login", async (request, response) => {
       user: {
         id: user._id,
         name: user.name,
+        email: user.email,
       },
     });
   } catch {
@@ -122,8 +123,9 @@ router.get("/", authentication, async (request, response) => {
   const user = await User.findById(request.user);
 
   response.json({
-    name: user.name,
     id: user._id,
+    name: user.name,
+    email: user.email,
   });
 });
 
