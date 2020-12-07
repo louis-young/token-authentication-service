@@ -6,7 +6,6 @@ require("dotenv").config();
 
 const app = express();
 
-// Middleware.
 app.use(express.json());
 
 app.use(
@@ -16,18 +15,17 @@ app.use(
   })
 );
 
-// Start server.
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));
 
-// Set up and connect to Mongoose.
 mongoose.connect(
   process.env.MONGODB_CONNECTION_STRING,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
+    useFindAndModify: false,
   },
   (error) => {
     if (error) throw error;
@@ -36,5 +34,4 @@ mongoose.connect(
   }
 );
 
-// Routes.
 app.use("/users", require("./routes/users/router"));
