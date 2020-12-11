@@ -6,6 +6,8 @@ const User = require("../../models/User");
 
 const authentication = require("../../middleware/authentication");
 
+const hash = require("../../utilities/hash");
+
 router.post("/register", async (request, response) => {
   try {
     const { name, email, password } = request.body;
@@ -28,16 +30,12 @@ router.post("/register", async (request, response) => {
       return response.status(400).json({ message: "An account with this email address already exists." });
     }
 
-    const rounds = 10;
-
-    const salt = await bcrypt.genSalt(rounds);
-
-    const hash = await bcrypt.hash(password, salt);
+    const hashedPassword = await hash(password);
 
     const newUser = new User({
       name,
       email,
-      password: hash,
+      password: hashedPassword,
     });
 
     const savedUser = await newUser.save();
@@ -133,34 +131,61 @@ router.get("/", authentication, async (request, response) => {
 
 router.patch("/update", authentication, async (request, response) => {
   try {
-    const { name } = request.body;
-
-    if (!name) {
-      return response.status(400).json({ message: "Please enter a valid name." });
-    }
+    const { fields } = request.body;
 
     const user = await User.findById(request.user);
 
-    if (user.name === name) {
-      return response.status(400).json({ message: "This name is the same as the current name." });
+    const validatedFields = {};
+
+    Object.entries(fields).forEach(([key, value]) => {
+      if (!value) {
+        return;
+      }
+
+      validatedFields[key] = value;
+    });
+
+    if (validatedFields.password) {
+      const hashedPassword = await hash(validatedFields.password);
+
+      validatedFields.password = hashedPassword;
     }
 
-    const editedUser = await User.findByIdAndUpdate(user._id, { name });
-
-    if (!editedUser) {
-      return response.status(400).json({ message: "Something went wrong." });
-    }
+    await User.findByIdAndUpdate(user._id, validatedFields);
 
     const updatedUser = await User.findById(request.user);
 
     response.json({
-      message: "User successfully updated.",
+      message: "User updated.",
       user: {
         id: updatedUser._id,
         name: updatedUser.name,
         email: updatedUser.email,
       },
     });
+
+    // const { name } = request.body.fields;
+
+    // if (!name) {
+    //   return response.status(400).json({ message: "Please enter a valid name." });
+    // }
+
+    // if (user.name === name) {
+    //   return response.status(400).json({ message: "This name is the same as the current name." });
+    // }
+
+    // await User.findByIdAndUpdate(user._id, { name });
+
+    // const updatedUser = await User.findById(request.user);
+
+    // response.json({
+    //   message: "User successfully updated.",
+    //   user: {
+    //     id: updatedUser._id,
+    //     name: updatedUser.name,
+    //     email: updatedUser.email,
+    //   },
+    // });
   } catch (error) {
     response.status(500).json({ error: error.message });
   }
