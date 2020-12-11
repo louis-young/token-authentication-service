@@ -163,29 +163,6 @@ router.patch("/update", authentication, async (request, response) => {
         email: updatedUser.email,
       },
     });
-
-    // const { name } = request.body.fields;
-
-    // if (!name) {
-    //   return response.status(400).json({ message: "Please enter a valid name." });
-    // }
-
-    // if (user.name === name) {
-    //   return response.status(400).json({ message: "This name is the same as the current name." });
-    // }
-
-    // await User.findByIdAndUpdate(user._id, { name });
-
-    // const updatedUser = await User.findById(request.user);
-
-    // response.json({
-    //   message: "User successfully updated.",
-    //   user: {
-    //     id: updatedUser._id,
-    //     name: updatedUser.name,
-    //     email: updatedUser.email,
-    //   },
-    // });
   } catch (error) {
     response.status(500).json({ error: error.message });
   }
