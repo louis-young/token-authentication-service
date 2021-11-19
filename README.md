@@ -1,6 +1,6 @@
 # Login API
 
-REST API for an authentication boilerplate using Node, Express and MongoDB.
+A REST API for an authentication boilerplate using Node, Express and MongoDB.
 
 ![Login](documentation/login.jpg)
 
