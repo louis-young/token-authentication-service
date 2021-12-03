@@ -1,16 +1,16 @@
-# Login API
+# Authentication Service
 
-A REST API for an authentication boilerplate using Node, Express and MongoDB.
+A Node authentication service.
 
-![Login](documentation/login.jpg)
+![Authentication Service](documentation/authentication-service.jpg)
 
 ## Description
 
-This is an application which serves as an authentication boilerplate using built React, Node/Express and MongoDB.
+A Node authentication service consumed by a separate React application, written in Node and Express.
 
 ## Motivation
 
-I built this application to learn about authentication and security, and to provide a boilerplate to use for future projects. I now know about better alternatives to JSON Web Tokens.
+I built this service to learn more about authentication and security. I now know about better alternatives than JWTs and have built a [https://github.com/louis-young/session-authentication-service](new an improved service).
 
 ### Available Scripts
 
@@ -18,4 +18,5 @@ In the project directory, you can run:
 
 #### `npm start`
 
-Starts the Node/Express server and REST API.
+Starts the authentication service.
+
