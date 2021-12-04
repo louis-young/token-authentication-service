@@ -6,7 +6,7 @@ A token-based authentication service.
 
 ## Description
 
-A Node authentication service consumed by a separate React application, written in Node and Express.
+A token-based authentication service consumed by a React application.
 
 ## Motivation
 
