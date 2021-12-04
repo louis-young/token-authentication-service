@@ -21,6 +21,8 @@ I built this service to learn more about authentication and security. Please not
 - MongoDB.
 - JWT.
 
+--- 
+
 ### Available Scripts
 
 In the project directory, you can run:
