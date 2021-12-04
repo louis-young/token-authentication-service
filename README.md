@@ -1,4 +1,4 @@
-# Authentication Service
+# Token Authentication Service
 
 A token-based authentication service.
 
@@ -20,8 +20,6 @@ I built this service to learn more about authentication and security. Please not
 - Express.
 - MongoDB.
 - JWT.
-
---- 
 
 ### Available Scripts
 
