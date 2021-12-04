@@ -10,7 +10,7 @@ A token-based authentication service consumed by a React application.
 
 ## Motivation
 
-I built this service to learn more about authentication and security. Pleasde note that I am aware of better alternatives than JWTs and have built a [https://github.com/louis-young/session-authentication-service](new an improved service).
+I built this service to learn more about authentication and security. Pleasde note that I am aware of better alternatives than JWTs and have built a [new an improved service](https://github.com/louis-young/session-authentication-service).
 
 ## Technologies
 
